@@ -1,5 +1,6 @@
 import "./CriaJogo.css"
 import { useState } from "react";
+import MostraJogo from "../MostraJogo/MostraJogo";
 
 function CriaJogo() {
     const [imagem, setImagem] = useState(null);
@@ -9,6 +10,8 @@ function CriaJogo() {
     const [nota, setNota] = useState(0)
     const [status, setStatus] = useState("")
     const [consideracoes, setConsideracoes] = useState("")
+
+    const [mostrar, setMostrar] = useState(false)
 
   function handleImagem(e) {
     const file = e.target.files[0];
@@ -23,13 +26,19 @@ function CriaJogo() {
 
   function verInfos(){
     console.log(nome, status, nota, consideracoes)
-    setNome("")
-    setNota("")
-    setStatus("")
-    setConsideracoes("")
+    if(!imagem 
+    || !nome 
+    || !status 
+    || !nota 
+    || !consideracoes) {
+        alert("Preencha todos os campos")
+    } else{
+        setMostrar(true)
+    }
   }
 
 return (
+    <>
     <div className="form-wrapper">
 
         <h2 className="form-title">
@@ -111,6 +120,19 @@ return (
             Adicionar Jogo
         </button>
     </div>
+    <div>
+        {mostrar && (
+                <MostraJogo 
+                imagem={preview}
+                nome={nome}
+                nota={nota}
+                status={status}
+                consideracoes={consideracoes}/>
+            )
+        }
+    </div>
+</>
+
   )
 }
 
