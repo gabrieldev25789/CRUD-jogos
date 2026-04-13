@@ -1,0 +1,97 @@
+.game-card {
+  background: #141414;
+  border: 0.5px solid #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 160px;
+  transition: border-color 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+
+.game-card:hover {
+  border-color: #ff6a00;
+  transform: translateY(-4px);
+}
+
+/* ── Capa ── */
+.game-card-cover {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.game-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0d0d0d;
+  display: block;
+}
+
+/* ── Badge de status ── */
+.game-card-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.status-jogando {
+  background: #3b82f618;
+  color: #3b82f6;
+  border: 0.5px solid #3b82f644;
+}
+
+.status-zerado {
+  background: #22c55e18;
+  color: #22c55e;
+  border: 0.5px solid #22c55e44;
+}
+
+.status-dropado {
+  background: #ef444418;
+  color: #ef4444;
+  border: 0.5px solid #ef444444;
+}
+
+/* ── Info ── */
+.game-card-info {
+  padding: 0.6rem 0.75rem 0.4rem;
+}
+
+.game-card-nome {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.game-card-consideracoes {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Rodapé ── */
+.game-card-footer {
+  padding: 0.5rem 0.75rem;
+  border-top: 0.5px solid #1e1e1e;
+}
+
+.game-card-nota {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ff6a00;
+}
