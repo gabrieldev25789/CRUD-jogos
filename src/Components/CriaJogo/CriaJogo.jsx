@@ -2,9 +2,13 @@ import "./CriaJogo.css"
 import { useState } from "react";
 
 function CriaJogo() {
-
     const [imagem, setImagem] = useState(null);
     const [preview, setPreview] = useState(null);
+
+    const [nome, setNome] = useState("")
+    const [nota, setNota] = useState(0)
+    const [status, setStatus] = useState("")
+    const [consideracoes, setConsideracoes] = useState("")
 
   function handleImagem(e) {
     const file = e.target.files[0];
@@ -15,6 +19,14 @@ function CriaJogo() {
       const url = URL.createObjectURL(file);
       setPreview(url);
     }
+  }
+
+  function verInfos(){
+    console.log(nome, status, nota, consideracoes)
+    setNome("")
+    setNota("")
+    setStatus("")
+    setConsideracoes("")
   }
 
 return (
@@ -50,7 +62,11 @@ return (
 
         <div className="form-group">
             <label className="form-label">Nome do jogo</label>
-            <input type="text" name="nome" placeholder="ex: The Last of Us" />
+            <input 
+            type="text"  
+            placeholder="ex: The Last of Us" 
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}/>
         </div>
 
         <div className="row-2">
@@ -59,7 +75,11 @@ return (
             <label className="form-label">Nota</label>
 
                 <div className="nota-wrapper">
-                    <input type="number" name="nota" placeholder="0" min="0" max="10" />
+                    <input 
+                    type="number" 
+                    placeholder="0" min="0" max="10" 
+                    value={nota}
+                    onChange={(e) => setNota(e.target.value)}/>
                     <span className="nota-suffix">/ 10</span>
                 </div>
 
@@ -67,24 +87,27 @@ return (
 
             <div className="form-group">
 
-                <label className="form-label">Status</label>
+            <label className="form-label">Status</label>
 
-                <select name="status">
-                    <option value="">Selecione...</option>
-                    <option value="jogando">Jogando</option>
-                    <option value="zerado">Zerado</option>
-                    <option value="dropado">Dropado</option>
-                </select>
+            <input 
+                type="text" 
+                placeholder="ex: gostando..."
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+            />
                 
             </div>
         </div>
 
         <div className="form-group">
             <label className="form-label">Considerações</label>
-            <textarea name="consideracoes" placeholder="Suas impressões sobre o jogo..." />
+            <textarea 
+            placeholder="Suas impressões sobre o jogo..." 
+            value={consideracoes}
+            onChange={(e) => setConsideracoes(e.target.value)}/>
         </div>
 
-        <button className="btn-submit" type="submit">
+        <button className="btn-submit" type="submit" onClick={() => verInfos()}>
             Adicionar Jogo
         </button>
     </div>
