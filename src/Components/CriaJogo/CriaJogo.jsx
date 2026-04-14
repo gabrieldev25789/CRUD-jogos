@@ -11,7 +11,7 @@ function CriaJogo() {
     const [status, setStatus] = useState("")
     const [consideracoes, setConsideracoes] = useState("")
 
-    const [mostrar, setMostrar] = useState(false)
+    const [listaJogos, setListaJogos] = useState([])
 
   function handleImagem(e) {
     const file = e.target.files[0];
@@ -24,17 +24,37 @@ function CriaJogo() {
     }
   }
 
-  function verInfos(){
-    console.log(nome, status, nota, consideracoes)
+  function addJogo(){
+
+    const newGame = {
+    id: Date.now(),
+    imagem: preview,
+    nome,
+    nota,
+    status,
+    consideracoes
+  }
+
+    setListaJogos((prev) => [...prev, newGame])
+
+    setPreview(null)
+    setNome("")
+    setNota("")
+    setStatus("")
+    setConsideracoes("")
+
+    if(nota > 10 || nota < 0){
+    alert("Nota invalida")
+    return 
+    }
+
     if(!imagem 
     || !nome 
     || !status 
     || !nota 
     || !consideracoes) {
-        alert("Preencha todos os campos")
-    } else{
-        setMostrar(true)
-    }
+    alert("Preencha todos os campos")
+    } 
   }
 
 return (
@@ -116,20 +136,24 @@ return (
             onChange={(e) => setConsideracoes(e.target.value)}/>
         </div>
 
-        <button className="btn-submit" type="submit" onClick={() => verInfos()}>
+        <button className="btn-submit"  onClick={() => addJogo()}>
             Adicionar Jogo
         </button>
     </div>
+
     <div>
-        {mostrar && (
-                <MostraJogo 
-                imagem={preview}
-                nome={nome}
-                nota={nota}
-                status={status}
-                consideracoes={consideracoes}/>
+        {listaJogos.map((game)=>{
+            return (
+            <MostraJogo 
+                key={game.id}
+                imagem={game.imagem}
+                nome={game.nome}
+                nota={game.nota}
+                status={game.status}
+                consideracoes={game.consideracoes}
+            />
             )
-        }
+        })}
     </div>
 </>
 
