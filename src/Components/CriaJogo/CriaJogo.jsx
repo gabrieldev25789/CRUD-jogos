@@ -54,8 +54,13 @@ function CriaJogo() {
     || !nota 
     || !consideracoes) {
     alert("Preencha todos os campos")
+    return 
     } 
   }
+
+ function removerJogo(index) {
+  setListaJogos(prev => prev.filter((_, i) => i !== index))
+}
 
 return (
     <>
@@ -141,20 +146,21 @@ return (
         </button>
     </div>
 
-    <div>
-        {listaJogos.map((game)=>{
+    <div className="container-pai">
+        {listaJogos.map((game, index)=>{
             return (
-            <MostraJogo 
-                key={game.id}
-                imagem={game.imagem}
-                nome={game.nome}
-                nota={game.nota}
-                status={game.status}
-                consideracoes={game.consideracoes}
-            />
-            )
-        })}
-    </div>
+                <MostraJogo 
+                    key={index}
+                    imagem={game.imagem}
+                    nome={game.nome}
+                    nota={game.nota}
+                    status={game.status}
+                    consideracoes={game.consideracoes}
+                    removerJogo={() => removerJogo(index)}
+                />
+                )
+            })}
+        </div>
 </>
 
   )
