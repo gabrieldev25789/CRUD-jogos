@@ -1,66 +1,10 @@
 import "./CriaJogo.css"
-import { useState } from "react";
 import MostraJogo from "../MostraJogo/MostraJogo";
 
-function CriaJogo() {
-    const [imagem, setImagem] = useState(null);
-    const [preview, setPreview] = useState(null);
+function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos }) {
 
-    const [nome, setNome] = useState("")
-    const [nota, setNota] = useState(0)
-    const [status, setStatus] = useState("")
-    const [consideracoes, setConsideracoes] = useState("")
-
-    const [listaJogos, setListaJogos] = useState([])
-
-  function handleImagem(e) {
-    const file = e.target.files[0];
-
-    if (file) {
-      setImagem(file);
-
-      const url = URL.createObjectURL(file);
-      setPreview(url);
-    }
-  }
-
-  function addJogo(){
-
-    const newGame = {
-    id: Date.now(),
-    imagem: preview,
-    nome,
-    nota,
-    status,
-    consideracoes
-  }
-
-    setListaJogos((prev) => [...prev, newGame])
-
-    setPreview(null)
-    setNome("")
-    setNota("")
-    setStatus("")
-    setConsideracoes("")
-
-    if(nota > 10 || nota < 0){
-    alert("Nota invalida")
-    return 
-    }
-
-    if(!imagem 
-    || !nome 
-    || !status 
-    || !nota 
-    || !consideracoes) {
-    alert("Preencha todos os campos")
-    return 
-    } 
-  }
-
- function removerJogo(index) {
-  setListaJogos(prev => prev.filter((_, i) => i !== index))
-}
+    const { nome, nota, status, consideracoes, preview } = formData
+    const { setNome, setNota, setStatus, setConsideracoes, handleImagem } = formHandlers
 
 return (
     <>
@@ -146,9 +90,10 @@ return (
         </button>
     </div>
 
-    <div className="container-pai">
+   
         {listaJogos.map((game, index)=>{
-            return (
+            return ( 
+            <div className="container-pai">
                 <MostraJogo 
                     key={index}
                     imagem={game.imagem}
@@ -157,12 +102,11 @@ return (
                     status={game.status}
                     consideracoes={game.consideracoes}
                     removerJogo={() => removerJogo(index)}
-                />
-                )
-            })}
-        </div>
-</>
-
+                /> 
+            </div>
+            )
+            })}    
+        </>
   )
 }
 
