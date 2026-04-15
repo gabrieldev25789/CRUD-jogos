@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+
 import CriaJogo from './Components/CriaJogo/CriaJogo'
 
 function App() {
@@ -26,47 +26,43 @@ function App() {
     }
   }
   
-  function addJogo(){
-    setMostrar(true)
-
-    const newGame = {
-    id: Date.now(),
-    imagem: preview,
-    nome,
-    nota,
-    status,
-    consideracoes
-  }
-    if(nota > 10 || nota < 0){
-    alert("Nota invalida")
-    return 
+  function addJogo() {
+    if (nota > 10 || nota < 0) {
+      alert("Nota inválida");
+      return;
     }
 
-    if(
-    !imagem
-    || !preview 
-    || !nome 
-    || !status 
-    || !nota 
-    || !consideracoes) {
-    alert("Preencha todos os campos")
-    return 
-    } 
+    if (!imagem || !preview || !nome || !status || !nota || !consideracoes) {
+      alert("Preencha todos os campos");
+      return;
+    }
 
-    setListaJogos((prev) => [...prev, newGame])
+    const newGame = {
+      id: Date.now(),
+      imagem: preview,
+      nome,
+      nota,
+      status,
+      consideracoes,
+    };
 
-    setPreview(null)
-    setNome("")
-    setNota("")
-    setStatus("")
-    setConsideracoes("")
-  }
+    setListaJogos((prev) => [...prev, newGame]);
+    setMostrar(true);
 
-  
-function removerJogo(index) {
-  setListaJogos(prev => prev.filter((_, i) => i !== index))
+    setPreview(null);
+    setNome("");
+    setNota("");
+    setStatus("");
+    setConsideracoes("");
 }
 
+function removerJogo(index) {
+  setListaJogos(prev => prev.filter((_, i) => i !== index))
+
+  if(!index){
+    setMostrar(false)
+  }
+}
   const formData = { nome, nota, status, consideracoes, preview, mostrar }
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem}
 
