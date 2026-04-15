@@ -13,6 +13,8 @@ function App() {
     const [status, setStatus] = useState("")
     const [consideracoes, setConsideracoes] = useState("")
 
+    const [mostrar, setMostrar] = useState(false)
+
     function handleImagem(e) {
     const file = e.target.files[0];
 
@@ -25,6 +27,7 @@ function App() {
   }
   
   function addJogo(){
+    setMostrar(true)
 
     const newGame = {
     id: Date.now(),
@@ -64,8 +67,8 @@ function removerJogo(index) {
   setListaJogos(prev => prev.filter((_, i) => i !== index))
 }
 
-  const formData = { nome, nota, status, consideracoes, preview }
-  const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem }
+  const formData = { nome, nota, status, consideracoes, preview, mostrar }
+  const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem}
 
   return (
     <>
