@@ -1,26 +1,39 @@
 import "./MostraJogo.css"
-import CriaJogo from "../CriaJogo/CriaJogo"
 
-function MostraJogo({ imagem, nome, nota, status, consideracoes }) {
+function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo }) {
+  const badgeClass = {
+    jogando: "b-playing",
+    zerado:  "b-done",
+    dropado: "b-dropped",
+    pausado: "b-paused",
+  }[status] ?? "b-playing";
+
+  const stars = Array.from({ length: 5 }, (_, i) => (
+    <div key={i} className={`star ${i < Math.round(nota / 2) ? "on" : ""}`} />
+  ));
+
   return (
-    <div className="game-card">
+    <div className="gc">
+      <div className="gc-cover">
+        {imagem
+          ? <img src={imagem} alt={`Capa de ${nome}`} />
+          : <div className="gc-cover-placeholder">🎮</div>
+        }
+        <span className={`gc-badge ${badgeClass}`}>{status}</span>
+      </div>
 
-        <div className="game-card-cover">
-            <img src={imagem} alt={`Capa de ${nome}`} />
-            <span className={`game-card-status status-${status}`}>{status}</span>
-        </div>
+      <div className="gc-info">
+        <h2 className="gc-title">{nome}</h2>
+        <p className="gc-desc">{consideracoes}</p>
+      </div>
 
-        <div className="game-card-info">
-            <h2 className="game-card-nome">{nome}</h2>
-            <p className="game-card-consideracoes">{consideracoes}</p>
-        </div>
-
-        <div className="game-card-footer">
-            <span className="game-card-nota">⭐ {nota} / 10</span>
-        </div>
-
+      <div className="gc-footer">
+        <span className="gc-score">{nota} / 10</span>
+        <div className="gc-stars">{stars}</div>
+        <button onClick={() => removerJogo(nome)} className="remove-btn">Remover</button>
+      </div>
     </div>
-  )
+  );
 }
 
 export default MostraJogo
