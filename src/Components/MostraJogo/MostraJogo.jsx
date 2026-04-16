@@ -1,6 +1,6 @@
 import "./MostraJogo.css"
 
-function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo }) {
+function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo }) {
   const badgeClass = {
     jogando: "b-playing",
     zerado:  "b-done",
@@ -13,13 +13,13 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo }) 
   ));
 
   return (
+  <>
     <div className="gc">
       <div className="gc-cover">
         {imagem
           ? <img src={imagem} alt={`Capa de ${nome}`} />
           : <div className="gc-cover-placeholder">🎮</div>
         }
-        <span className={`gc-badge ${badgeClass}`}>{status}</span>
       </div>
 
       <div className="gc-info">
@@ -29,10 +29,16 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo }) 
 
       <div className="gc-footer">
         <span className="gc-score">{nota} / 10</span>
+
         <div className="gc-stars">{stars}</div>
+        <span className={`gc-badge ${badgeClass}`}>{status}</span>
+        <span className="btns">
+        <button onClick={() => editarJogo(nome)} className="edit-btn">editar</button>
         <button onClick={() => removerJogo(nome)} className="remove-btn">Remover</button>
+        </span>
       </div>
     </div>
+    </>
   );
 }
 
