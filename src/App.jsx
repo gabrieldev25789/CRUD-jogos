@@ -17,6 +17,8 @@ function App() {
 
     const [editIndex, setEditIndex] = useState(null)
 
+    const [ativo, setAtivo] = useState(false)
+
     function handleImagem(e) {
     const file = e.target.files[0];
 
@@ -52,10 +54,11 @@ function App() {
     setMostrar(true);
 
     setPreview(null);
-    setNome("");
-    setNota("");
-    setStatus("");
-    setConsideracoes("");
+
+    const setters = [setNome, setNota, setStatus, setConsideracoes]
+    setters.forEach((setter)=>{
+      setter("")
+    })
 }
 
 function handleImagemChange(e) {
@@ -69,6 +72,7 @@ function handleImagemChange(e) {
 }
 
 function editarJogo(index){
+  setAtivo(true)
   const jogo = listaJogos[index]
 
   setPreview(jogo.preview)
@@ -83,6 +87,7 @@ function editarJogo(index){
 }
 
 function salvarEdicao(){
+  setAtivo(false)
   const novaLista = listaJogos.map((jogo, index)=>{
     if(index === editIndex){
       return {
@@ -106,7 +111,6 @@ function salvarEdicao(){
  })
 }
 
-
 function removerJogo(index) {
   setListaJogos(prev => prev.filter((_, i) => i !== index))
 
@@ -114,7 +118,7 @@ function removerJogo(index) {
     setMostrar(false)
   }
 }
-  const formData = { nome, nota, status, consideracoes, preview, mostrar }
+  const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo }
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem}
 
   return (
