@@ -1,10 +1,19 @@
 import "./CriaJogo.css"
 import MostraJogo from "../MostraJogo/MostraJogo";
+import { useState } from "react";
 
-function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao }) {
+function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange }) {
 
-  const { nome, nota, status, consideracoes, preview } = formData
-  const { setNome, setNota, setStatus, setConsideracoes, handleImagem } = formHandlers
+  const { nome, nota, status, consideracoes, preview, ativo  } = formData
+  const { setNome, setNota, setStatus, setConsideracoes } = formHandlers
+
+  /*
+  const [favoritoIndex, setFavoritoIndex] = useState(null)
+
+   function favoritarJogo(nome){
+    setFavoritoIndex(nome)
+    console.log(nome)
+  } */
 
   return (
     <div className="layout-wrapper">
@@ -17,7 +26,7 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
         <div className="form-group">
           <label className="form-label">Capa do jogo</label>
           <div className="upload-area">
-            <input type="file" accept="image/*" onChange={handleImagem} />
+            <input type="file" accept="image/*" onChange={(e)=> handleImagemChange(e)} />
             <div className="upload-icon">
               <svg viewBox="0 0 24 24" strokeWidth="1.5" fill="none" stroke="currentColor">
                 <path d="M12 16V4m0 0L8 8m4-4 4 4" />
@@ -73,11 +82,15 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
           />
         </div>
 
-        <button className="btn-submit" onClick={() => addJogo()}>
+       {!ativo &&  
+       <button className="btn-submit" onClick={() => addJogo()}>
           Adicionar Jogo
-        </button>
+        </button> 
+      }
 
-        <button onClick={() => salvarEdicao(nome)}>Salvar</button>
+       {ativo && 
+       <button className="btn-submit" onClick={() => salvarEdicao(nome)}>Salvar alteração</button>
+       } 
       </div>
 
       <div className="container-pai-wrapper">
@@ -91,8 +104,10 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
                 nome={game.nome}
                 nota={game.nota}
                 status={game.status}
+                /*favoritoIndex={favoritoIndex}*/
                 consideracoes={game.consideracoes}
                 removerJogo={() => removerJogo(index)}
+                /*favoritarJogo={() => favoritarJogo(index)}*/
                 editarJogo={() => editarJogo(index)}
               />
             ))}
