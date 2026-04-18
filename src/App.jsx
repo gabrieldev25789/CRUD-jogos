@@ -15,6 +15,8 @@ function App() {
 
     const [mostrar, setMostrar] = useState(false)
 
+    const [editIndex, setEditIndex] = useState(null)
+
     function handleImagem(e) {
     const file = e.target.files[0];
 
@@ -56,6 +58,55 @@ function App() {
     setConsideracoes("");
 }
 
+function handleImagemChange(e) {
+  const file = e.target.files[0]
+  const reader = new FileReader()
+  reader.onloadend = () => {
+    setImagem(reader.result) 
+    setPreview(reader.result)
+  }
+  reader.readAsDataURL(file)
+}
+
+function editarJogo(index){
+  const jogo = listaJogos[index]
+
+  setPreview(jogo.preview)
+  setNome(jogo.nome)
+  setNota(jogo.nota)
+  setStatus(jogo.status)
+  setConsideracoes(jogo.consideracoes)
+
+  setImagem(jogo.imagem)
+
+  setEditIndex(index)
+}
+
+function salvarEdicao(){
+  const novaLista = listaJogos.map((jogo, index)=>{
+    if(index === editIndex){
+      return {
+        imagem,
+        nome,
+        nota, 
+        status, 
+        consideracoes,
+        preview
+      }
+    }
+    return jogo
+  })
+
+  setListaJogos(novaLista)
+  setEditIndex(null)
+
+ const setters = [setPreview, setNome, setNota, setStatus, setConsideracoes, setImagem]
+ setters.forEach((setter)=>{
+  setter("")
+ })
+}
+
+
 function removerJogo(index) {
   setListaJogos(prev => prev.filter((_, i) => i !== index))
 
@@ -71,9 +122,12 @@ function removerJogo(index) {
     <CriaJogo 
       formData={formData}
       formHandlers={formHandlers}
+      handleImagemChange={handleImagemChange}
       addJogo={addJogo}
       removerJogo={removerJogo}
       listaJogos={listaJogos}
+      editarJogo={editarJogo}
+      salvarEdicao={salvarEdicao}
     />
     </>
   )
