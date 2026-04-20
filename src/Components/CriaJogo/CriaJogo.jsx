@@ -2,18 +2,20 @@ import "./CriaJogo.css"
 import MostraJogo from "../MostraJogo/MostraJogo";
 import { useState } from "react";
 
-function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange }) {
+function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo }) {
 
   const { nome, nota, status, consideracoes, preview, ativo  } = formData
   const { setNome, setNota, setStatus, setConsideracoes } = formHandlers
 
-  /*
-  const [favoritoIndex, setFavoritoIndex] = useState(null)
+  const [favoritos, setFavoritos] = useState([])
 
-   function favoritarJogo(nome){
-    setFavoritoIndex(nome)
-    console.log(nome)
-  } */
+  const jogosOrdenados = [...listaJogos].sort((a, b) => {
+  const aFav = favoritos.includes(a.nome)
+  const bFav = favoritos.includes(b.nome)
+
+  if (aFav === bFav) return 0
+  return aFav ? -1 : 1
+})
 
   return (
     <div className="layout-wrapper">
@@ -82,7 +84,7 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
           />
         </div>
 
-       {!ativo &&  
+      {!ativo &&  
        <button className="btn-submit" onClick={() => addJogo()}>
           Adicionar Jogo
         </button> 
@@ -97,18 +99,19 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
         <h2 style={{ textAlign: "center"}}>Sua lista de jogos:</h2>
         {listaJogos.length > 0 && (
           <div className="container-pai">
-            {listaJogos.map((game, index) => (
+            {jogosOrdenados.map((game, index) => (
               <MostraJogo
-                key={index}
+                key={game.nome}
                 imagem={game.imagem}
                 nome={game.nome}
                 nota={game.nota}
                 status={game.status}
-                /*favoritoIndex={favoritoIndex}*/
                 consideracoes={game.consideracoes}
                 removerJogo={() => removerJogo(index)}
-                /*favoritarJogo={() => favoritarJogo(index)}*/
                 editarJogo={() => editarJogo(index)}
+                favoritarJogo={() => favoritarJogo(index)}
+                favoritos={favoritos}
+                setFavoritos={setFavoritos}
               />
             ))}
           </div>
