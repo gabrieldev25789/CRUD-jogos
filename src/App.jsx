@@ -99,29 +99,32 @@ function editarJogo(index){
   setEditIndex(index)
 }
 
-function salvarEdicao(){
-  setAtivo(false)
-  const novaLista = listaJogos.map((jogo, index)=>{
-    if(index === editIndex){
-      return {
-        imagem,
-        nome,
-        nota, 
-        status, 
-        consideracoes,
-        preview
-      }
+function salvarEdicao() {
+  // 1. valida primeiro
+  const nomeAtual = listaJogos[editIndex].nome
+  const jaExiste = guardaNome.includes(nome) && nome !== nomeAtual
+  if (jaExiste) {
+    alert("Já existe um jogo com esse nome")
+    return
+  }
+
+  // 2. salva
+  const novaLista = listaJogos.map((jogo, index) => {
+    if (index === editIndex) {
+      return { imagem, nome, nota, status, consideracoes, preview }
     }
     return jogo
   })
-
   setListaJogos(novaLista)
   setEditIndex(null)
 
- const setters = [setPreview, setNome, setNota, setStatus, setConsideracoes, setImagem]
- setters.forEach((setter)=>{
-  setter("")
- })
+  // 3. usa nomeAtual que já foi salvo na variável lá em cima
+  setGuardaNome(prev => [...prev.filter(n => n !== nomeAtual), nome])
+
+  // 4. limpa tudo
+  const setters = [setPreview, setNome, setNota, setStatus, setConsideracoes, setImagem]
+  setters.forEach(setter => setter(""))
+  setAtivo(false)
 }
 
 function removerJogo(index) {
