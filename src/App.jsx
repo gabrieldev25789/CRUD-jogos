@@ -29,7 +29,9 @@ function App() {
       setPreview(url);
     }
   }
-  
+
+  const [guardaNome, setGuardaNome] = useState([])
+
   function addJogo() {
     if (nota > 10 || nota < 0) {
       alert("Nota inválida");
@@ -39,6 +41,17 @@ function App() {
     if (!imagem || !preview || !nome || !status || !nota || !consideracoes) {
       alert("Preencha todos os campos");
       return;
+    }
+
+    const jaExiste = guardaNome.includes(nome)
+
+    if (!jaExiste) {
+      setGuardaNome((prev) => [...prev, nome])
+    }
+
+    if(jaExiste){
+      alert("Já existe um jogo com esse nome")
+      return 
     }
 
     const newGame = {
