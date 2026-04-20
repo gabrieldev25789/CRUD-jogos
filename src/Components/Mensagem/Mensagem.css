@@ -1,0 +1,18 @@
+.mensagem-titulo {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e9e9e9;
+  background-color: #ff0101;
+  border: 1px solid #f52509;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  width: 70%;
+  margin: 1rem auto;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
