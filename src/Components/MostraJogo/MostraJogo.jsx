@@ -1,4 +1,5 @@
 import "./MostraJogo.css"
+import { useState } from "react";
 
 function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo }) {
   const badgeClass = {
@@ -12,9 +13,17 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
     <div key={i} className={`star ${i < Math.round(nota / 2) ? "on" : ""}`} />
   ));
 
+  const [favoritoIndex, setFavoritoIndex] = useState(null)
+
+  function favoritarJogo(nome){
+    setFavoritoIndex(nome)
+    console.log(nome, favoritoIndex)
+  } 
+
   return (
   <>
-    <div className="gc">
+  
+    <div className={favoritoIndex ? "gc favorito" : "gc"}>
       <div className="gc-cover">
         {imagem
           ? <img src={imagem} alt={`Capa de ${nome}`} />
@@ -32,10 +41,18 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
 
         <div className="gc-stars">{stars}</div>
         <span className={`gc-badge ${badgeClass}`}>{status}</span>
-        <span className="btns">
-        <button onClick={() => editarJogo(nome)} className="edit-btn">editar</button>
+
+      <span className="btns">
+        <button 
+          onClick={() => favoritarJogo(nome)} 
+          className={`fav-btn ${favoritoIndex ? "ativo" : ""}`}
+        >
+          {favoritoIndex ? "★ Favoritado" : "☆ Favoritar"}
+        </button>
+        <button onClick={() => editarJogo(nome)}  className="edit-btn">editar</button>
         <button onClick={() => removerJogo(nome)} className="remove-btn">Remover</button>
-        </span>
+      </span>
+
       </div>
     </div>
     </>
