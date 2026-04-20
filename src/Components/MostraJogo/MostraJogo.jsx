@@ -1,7 +1,6 @@
 import "./MostraJogo.css"
-import { useState } from "react";
 
-function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo }) {
+function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos }) {
   const badgeClass = {
     jogando: "b-playing",
     zerado:  "b-done",
@@ -13,17 +12,18 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
     <div key={i} className={`star ${i < Math.round(nota / 2) ? "on" : ""}`} />
   ));
 
-  const [favoritoIndex, setFavoritoIndex] = useState(null)
+  const isFavorito = favoritos.includes(nome)
 
-  function favoritarJogo(nome){
-    setFavoritoIndex(nome)
-    console.log(nome, favoritoIndex)
-  } 
+  function toggleFavorito() {
+    setFavoritos(prev =>
+      prev.includes(nome)
+        ? prev.filter(n => n !== nome)
+        : [nome, ...prev]
+    )
+  }
 
   return (
-  <>
-  
-    <div className={favoritoIndex ? "gc favorito" : "gc"}>
+    <div className={isFavorito ? "gc favorito" : "gc"}>
       <div className="gc-cover">
         {imagem
           ? <img src={imagem} alt={`Capa de ${nome}`} />
@@ -38,24 +38,21 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
 
       <div className="gc-footer">
         <span className="gc-score">{nota} / 10</span>
-
         <div className="gc-stars">{stars}</div>
         <span className={`gc-badge ${badgeClass}`}>{status}</span>
 
-      <span className="btns">
-        <button 
-          onClick={() => favoritarJogo(nome)} 
-          className={`fav-btn ${favoritoIndex ? "ativo" : ""}`}
-        >
-          {favoritoIndex ? "★ Favoritado" : "☆ Favoritar"}
-        </button>
-        <button onClick={() => editarJogo(nome)}  className="edit-btn">editar</button>
-        <button onClick={() => removerJogo(nome)} className="remove-btn">Remover</button>
-      </span>
-
+        <span className="btns">
+          <button
+            onClick={toggleFavorito}
+            className={`fav-btn ${isFavorito ? "ativo" : ""}`}
+          >
+            {isFavorito ? "★ Favoritado" : "☆ Favoritar"}
+          </button>
+          <button onClick={editarJogo} className="edit-btn">editar</button>
+          <button onClick={removerJogo} className="remove-btn">Remover</button>
+        </span>
       </div>
     </div>
-    </>
   );
 }
 
