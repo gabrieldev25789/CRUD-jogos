@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import CriaJogo from './Components/CriaJogo/CriaJogo'
 import Mensagem from './Components/Mensagem/Mensagem';
+import Pesquisa from './Components/Pesquisa/Pesquisa';
 
 function App() {
 
@@ -107,7 +108,6 @@ function editarJogo(index){
 }
 
 function salvarEdicao() {
-  // 1. valida primeiro
   const nomeAtual = listaJogos[editIndex].nome
   const jaExiste = guardaNome.includes(nome) && nome !== nomeAtual
   if(nota > 10) {
@@ -121,20 +121,18 @@ function salvarEdicao() {
     return
   }
 
-  // 2. salva
   const novaLista = listaJogos.map((jogo, index) => {
     if (index === editIndex) {
       return { imagem, nome, nota, status, consideracoes, preview }
     }
     return jogo
   })
+  
   setListaJogos(novaLista)
   setEditIndex(null)
 
-  // 3. usa nomeAtual que já foi salvo na variável lá em cima
   setGuardaNome(prev => [...prev.filter(n => n !== nomeAtual), nome])
 
-  // 4. limpa tudo
   const setters = [setPreview, setNome, setNota, setStatus, setConsideracoes, setImagem]
   setters.forEach(setter => setter(""))
   setAtivo(false)
@@ -147,6 +145,19 @@ function removerJogo(index) {
     setMostrar(false)
   }
 }
+
+const [valor, setValor] = useState("")
+
+const [jogoFiltrado, setJogoFiltrado] = useState([])
+
+function pesquisarJogos(){
+
+  const filtrados = listaJogos.filter((jogo)=>
+    jogo.nome.toLowerCase().includes(valor.toLowerCase())
+)
+   setJogoFiltrado(filtrados) 
+}
+
   const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo }
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem}
 
@@ -154,6 +165,13 @@ function removerJogo(index) {
     <>
 
     {showMsg && <Mensagem mensagem={msg}/>}
+
+    <Pesquisa 
+    listaJogos={listaJogos}
+    valor={valor}
+    setValor={setValor}
+    pesquisarJogos={pesquisarJogos}
+    />
 
     <CriaJogo 
       formData={formData}
@@ -164,6 +182,8 @@ function removerJogo(index) {
       listaJogos={listaJogos}
       editarJogo={editarJogo}
       salvarEdicao={salvarEdicao}
+      jogoFiltrado={jogoFiltrado}
+      valor={valor}
     />
     </>
   )
