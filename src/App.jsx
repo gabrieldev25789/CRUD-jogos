@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import CriaJogo from './Components/CriaJogo/CriaJogo'
+import Mensagem from './Components/Mensagem/Mensagem';
 
 function App() {
 
@@ -19,6 +20,9 @@ function App() {
 
     const [ativo, setAtivo] = useState(false)
 
+    const [msg, setMsg] = useState("")
+    const [showMsg, setShowMsg] = useState(false)
+
     function handleImagem(e) {
     const file = e.target.files[0];
 
@@ -34,12 +38,14 @@ function App() {
 
   function addJogo() {
     if (nota > 10 || nota < 0) {
-      alert("Nota inválida");
+      setShowMsg(true)
+      setMsg("Nota invalida")
       return;
     }
 
     if (!imagem || !preview || !nome || !status || !nota || !consideracoes) {
-      alert("Preencha todos os campos");
+      setShowMsg(true)
+      setMsg("Preencha todos os campos")
       return;
     }
 
@@ -50,7 +56,8 @@ function App() {
     }
 
     if(jaExiste){
-      alert("Já existe um jogo com esse nome")
+      setShowMsg(true)
+      setMsg("Já existe um jogo com esse nome")
       return 
     }
 
@@ -103,8 +110,14 @@ function salvarEdicao() {
   // 1. valida primeiro
   const nomeAtual = listaJogos[editIndex].nome
   const jaExiste = guardaNome.includes(nome) && nome !== nomeAtual
+  if(nota > 10) {
+    setShowMsg(true)
+    setMsg("Nota invalida")
+    return 
+  }
   if (jaExiste) {
-    alert("Já existe um jogo com esse nome")
+    setShowMsg(true)
+    setMsg("Já existe um jogo com esse nome")
     return
   }
 
@@ -139,6 +152,9 @@ function removerJogo(index) {
 
   return (
     <>
+
+    {showMsg && <Mensagem mensagem={msg}/>}
+
     <CriaJogo 
       formData={formData}
       formHandlers={formHandlers}
