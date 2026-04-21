@@ -2,9 +2,9 @@ import "./CriaJogo.css"
 import MostraJogo from "../MostraJogo/MostraJogo";
 import { useState } from "react";
 
-function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo }) {
+function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor }) {
 
-  const { nome, nota, status, consideracoes, preview, ativo  } = formData
+  const { nome, nota, status, consideracoes, preview, ativo } = formData
   const { setNome, setNota, setStatus, setConsideracoes } = formHandlers
 
   const [favoritos, setFavoritos] = useState([])
@@ -96,11 +96,10 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
       </div>
 
       <div className="container-pai-wrapper">
-        <h2 style={{ textAlign: "center"}}>Sua lista de jogos:</h2>
         {listaJogos.length > 0 && (
           <div className="container-pai">
             {jogosOrdenados.map((game, index) => (
-              <MostraJogo
+             <MostraJogo
                 key={game.nome}
                 imagem={game.imagem}
                 nome={game.nome}
@@ -112,12 +111,13 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
                 favoritarJogo={() => favoritarJogo(index)}
                 favoritos={favoritos}
                 setFavoritos={setFavoritos}
+                jogoFiltrado={jogoFiltrado}
+                valor={valor}
               />
             ))}
           </div>
         )}
       </div>
-
     </div>
   )
 }
