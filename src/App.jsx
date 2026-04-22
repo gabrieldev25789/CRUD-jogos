@@ -158,16 +158,37 @@ function removerJogo(index) {
 
 const [valor, setValor] = useState("")
 
+/*const [mostrarFavorito, setMostrarFavorito] = useState(false)*/
+
 const [jogoFiltrado, setJogoFiltrado] = useState([])
 
-function pesquisarJogos(termoBusca){
+/*const [jogoFavorito, setJogoFavorito] = useState([])*/
+const [achado, setAchado] = useState(false)
+
+function pesquisarJogos(termoBusca) {
   setValor(termoBusca)
 
-  const filtrados = listaJogos.filter((jogo)=>
+  const filtrados = listaJogos.filter((jogo) =>
     jogo.nome.toLowerCase().includes(termoBusca.toLowerCase())
-)
-   setJogoFiltrado(filtrados) 
+  )
+
+  const achou = filtrados.length > 0
+
+  setAchado(achou)
+  setShowMsg(!achou)
+  setMsg(achou ? "" : "Nenhum jogo encontrado")
+  setJogoFiltrado(achou ? filtrados : [])
 }
+
+/*
+function pesquisarJogosFavoritos(){
+  setMostrarFavorito(true)
+  console.log(favoritos)
+  setJogoFavorito(favoritos)
+  console.log(jogoFavorito)
+}
+*/
+
 
   const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo, favoritos }
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem, setFavoritos }
@@ -177,10 +198,10 @@ function pesquisarJogos(termoBusca){
     {showMsg && <Mensagem mensagem={msg}/>}
 
     <Pesquisa 
-    listaJogos={listaJogos}
-    valor={valor}
-    setValor={setValor}
-    pesquisarJogos={pesquisarJogos}
+      listaJogos={listaJogos}
+      valor={valor}
+      setValor={setValor}
+      pesquisarJogos={pesquisarJogos}
     />
 
     <CriaJogo 
@@ -194,7 +215,10 @@ function pesquisarJogos(termoBusca){
       salvarEdicao={salvarEdicao}
       jogoFiltrado={jogoFiltrado}
       valor={valor}
+      achado={achado}
+    /*jogoFavorito={jogoFavorito}*/
     />
+   {/* <button onClick={() => pesquisarJogosFavoritos()}>Mostrar jogos favoritos</button> */ }
   </>
   )
 }
