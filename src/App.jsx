@@ -24,6 +24,8 @@ function App() {
     const [msg, setMsg] = useState("")
     const [showMsg, setShowMsg] = useState(false)
 
+    const [favoritos, setFavoritos] = useState([])
+
     function handleImagem(e) {
     const file = e.target.files[0];
 
@@ -72,6 +74,7 @@ function App() {
     };
 
     setListaJogos((prev) => [...prev, newGame]);
+    setMsg("Jogo adicionado")
     setMostrar(true);
 
     setPreview(null);
@@ -80,6 +83,8 @@ function App() {
     setters.forEach((setter)=>{
       setter("")
     })
+    
+    setShowMsg(false)
 }
 
 function handleImagemChange(e) {
@@ -105,6 +110,7 @@ function editarJogo(index){
   setImagem(jogo.imagem)
 
   setEditIndex(index)
+  console.log(index)
 }
 
 function salvarEdicao() {
@@ -127,11 +133,15 @@ function salvarEdicao() {
     }
     return jogo
   })
-  
+
   setListaJogos(novaLista)
   setEditIndex(null)
 
   setGuardaNome(prev => [...prev.filter(n => n !== nomeAtual), nome])
+
+  setFavoritos(prev =>
+    prev.map(n => n === nomeAtual ? nome : n)
+  )
 
   const setters = [setPreview, setNome, setNota, setStatus, setConsideracoes, setImagem]
   setters.forEach(setter => setter(""))
@@ -158,8 +168,8 @@ function pesquisarJogos(){
    setJogoFiltrado(filtrados) 
 }
 
-  const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo }
-  const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem}
+  const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo, favoritos }
+  const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem, setFavoritos }
 
   return (
     <>
