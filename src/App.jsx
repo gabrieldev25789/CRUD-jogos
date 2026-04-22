@@ -160,10 +160,11 @@ const [valor, setValor] = useState("")
 
 const [jogoFiltrado, setJogoFiltrado] = useState([])
 
-function pesquisarJogos(){
+function pesquisarJogos(termoBusca){
+  setValor(termoBusca)
 
   const filtrados = listaJogos.filter((jogo)=>
-    jogo.nome.toLowerCase().includes(valor.toLowerCase())
+    jogo.nome.toLowerCase().includes(termoBusca.toLowerCase())
 )
    setJogoFiltrado(filtrados) 
 }
@@ -172,8 +173,7 @@ function pesquisarJogos(){
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem, setFavoritos }
 
   return (
-    <>
-
+  <>
     {showMsg && <Mensagem mensagem={msg}/>}
 
     <Pesquisa 
@@ -195,7 +195,7 @@ function pesquisarJogos(){
       jogoFiltrado={jogoFiltrado}
       valor={valor}
     />
-    </>
+  </>
   )
 }
 
