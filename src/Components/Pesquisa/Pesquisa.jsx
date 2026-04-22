@@ -1,6 +1,6 @@
 import "./Pesquisa.css"
 
-function Pesquisa({ valor, setValor, pesquisarJogos }) {
+function Pesquisa({ valor, pesquisarJogos }) {
 
  return (
     <div className="search-wrapper">
@@ -8,9 +8,7 @@ function Pesquisa({ valor, setValor, pesquisarJogos }) {
             type="text"
             placeholder="Busque por um jogo..."
             value={valor}
-            onChange={(e) => {
-            setValor(e.target.value) 
-            pesquisarJogos()}}
+            onChange={(e) => pesquisarJogos(e.target.value)}
         />
     </div>
   );
