@@ -1,13 +1,10 @@
 import "./CriaJogo.css"
 import MostraJogo from "../MostraJogo/MostraJogo";
-import { useState } from "react";
 
 function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor }) {
 
-  const { nome, nota, status, consideracoes, preview, ativo } = formData
-  const { setNome, setNota, setStatus, setConsideracoes } = formHandlers
-
-  const [favoritos, setFavoritos] = useState([])
+  const { nome, nota, status, consideracoes, preview, ativo, favoritos } = formData
+  const { setNome, setNota, setStatus, setConsideracoes, setFavoritos } = formHandlers
 
   const jogosOrdenados = [...listaJogos].sort((a, b) => {
   const aFav = favoritos.includes(a.nome)
@@ -90,15 +87,17 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
         </button> 
       }
 
-       {ativo && 
+      {ativo && 
        <button className="btn-submit" onClick={() => salvarEdicao(nome)}>Salvar alteração</button>
-       } 
+      } 
       </div>
 
       <div className="container-pai-wrapper">
         {listaJogos.length > 0 && (
           <div className="container-pai">
-            {jogosOrdenados.map((game, index) => (
+        {jogosOrdenados.map((game) => {
+            const indexOriginal = listaJogos.indexOf(game)
+          return (
              <MostraJogo
                 key={game.nome}
                 imagem={game.imagem}
@@ -106,15 +105,16 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
                 nota={game.nota}
                 status={game.status}
                 consideracoes={game.consideracoes}
-                removerJogo={() => removerJogo(index)}
-                editarJogo={() => editarJogo(index)}
-                favoritarJogo={() => favoritarJogo(index)}
+                removerJogo={() => removerJogo(indexOriginal)}
+                editarJogo={() => editarJogo(indexOriginal)}
+                favoritarJogo={() => favoritarJogo(indexOriginal)}
                 favoritos={favoritos}
                 setFavoritos={setFavoritos}
                 jogoFiltrado={jogoFiltrado}
                 valor={valor}
               />
-            ))}
+            )
+            })}
           </div>
         )}
       </div>
