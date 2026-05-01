@@ -23,6 +23,18 @@
     inset 0 0 1.875rem rgba(12, 8, 5, 0.03);
 }
 
+.lista-titulo {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #e2e8f0;
+  border-bottom: 2px solid #b4410c;
+  padding-bottom: 1rem;
+  width: 40%;
+  margin: 1rem auto;
+}
+
 .layout-wrapper {
   display: flex;
   align-items: flex-start;
@@ -40,6 +52,7 @@
 }
 
 .container-pai-wrapper {
+  margin-top: -3rem;
   flex: 1;
   min-width: 0;
   display: flex;
