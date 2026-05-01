@@ -173,15 +173,29 @@ function pesquisarJogos(termoBusca) {
 
   setAchado(achou)
   setShowMsg(!achou)
+  setTimeout(() => {
   setMsg(achou ? "" : "Nenhum jogo encontrado")
+  }, 200);
   setJogoFiltrado(achou ? filtrados : [])
 }
 
 const [mostraFavorito, setMostraFavorito] = useState(false)
 
-function mostrarFavoritos(){
-  setMostraFavorito((prev)=> !prev)
-  console.log(favoritos)
+function mostrarFavoritos() {
+  const abrindo = !mostraFavorito 
+
+  setMostraFavorito((prev) => !prev)
+
+  if (abrindo && favoritos.length === 0) {
+    setTimeout(() => {
+      setShowMsg(true)
+      setMsg("Nenhum jogo favoritado ainda!")
+
+      setTimeout(() => {
+        setShowMsg(false)
+      }, 3000)
+    }, 0)
+  }
 }
 
   const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo, favoritos }
@@ -211,8 +225,9 @@ function mostrarFavoritos(){
       valor={valor}
       achado={achado}
       mostraFavorito={mostraFavorito}
+      setMsg={setMsg}
     />
-    <button onClick={() => mostrarFavoritos()}>{mostraFavorito ? "Esconder favoritos" : "Mostrar favoritos"}</button>
+    {listaJogos.length > 0 && <button onClick={() => mostrarFavoritos()}>{mostraFavorito ? "Mostrar todos os jogos" : "Mostrar favoritos"}</button> }
   </>
   )
 }
