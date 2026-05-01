@@ -1,7 +1,7 @@
 import "./MostraJogo.css"
 
-function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos, jogoFiltrado, valor }) {
-
+function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos, jogoFiltrado, valor, mostraFavorito }) {
+  
   const badgeClass = {
     jogando: "b-playing",
     zerado:  "b-done",
@@ -22,15 +22,17 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
         : [nome, ...prev]
     )
   }
-  
+
   const filtro = jogoFiltrado.some((jogo) => jogo.nome === nome)
   const deveEsconder = valor.length > 0 && !filtro
 
-  if (deveEsconder) return null
- 
-  return (
+  const deveEsconderPorFavorito = mostraFavorito && !isFavorito
+
+  if(deveEsconder || deveEsconderPorFavorito) return null 
+
+ return (
     <div className={isFavorito ? "gc favorito" : "gc"}>
-     <div className= "gc-cover">
+      <div className="gc-cover">
         {imagem
           ? <img src={imagem} alt={`Capa de ${nome}`} />
           : <div className="gc-cover-placeholder">🎮</div>
@@ -54,12 +56,13 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
           >
             {isFavorito ? "★ Favoritado" : "☆ Favoritar"}
           </button>
-          <button onClick={editarJogo} className="edit-btn">editar</button>
+          <button onClick={editarJogo} className="edit-btn">Editar</button>
           <button onClick={removerJogo} className="remove-btn">Remover</button>
         </span>
-      </div> 
+      </div>
     </div>
   );
 }
+
 
 export default MostraJogo
