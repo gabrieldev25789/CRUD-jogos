@@ -1,7 +1,7 @@
 import "./CriaJogo.css"
 import MostraJogo from "../MostraJogo/MostraJogo";
 
-function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor }) {
+function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor, jogoFavorito, mostraFavorito }) {
 
   const { nome, nota, status, consideracoes, preview, ativo, favoritos } = formData
   const { setNome, setNota, setStatus, setConsideracoes, setFavoritos } = formHandlers
@@ -94,7 +94,7 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
 
       <div className="container-pai-wrapper">
         {listaJogos.length > 0 && (
-          <div className="container-pai">
+      <div className="container-pai">
         {jogosOrdenados.map((game) => {
             const indexOriginal = listaJogos.indexOf(game)
           return (
@@ -112,12 +112,14 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
                 setFavoritos={setFavoritos}
                 jogoFiltrado={jogoFiltrado}
                 valor={valor}
+                jogoFavorito={jogoFavorito}
+                mostraFavorito={mostraFavorito}
               />
             )
             })}
-          </div>
+        </div>
         )}
-      </div>
+      </div> 
     </div>
   )
 }
