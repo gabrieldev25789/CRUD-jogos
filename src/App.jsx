@@ -158,11 +158,8 @@ function removerJogo(index) {
 
 const [valor, setValor] = useState("")
 
-/*const [mostrarFavorito, setMostrarFavorito] = useState(false)*/
-
 const [jogoFiltrado, setJogoFiltrado] = useState([])
 
-/*const [jogoFavorito, setJogoFavorito] = useState([])*/
 const [achado, setAchado] = useState(false)
 
 function pesquisarJogos(termoBusca) {
@@ -180,15 +177,12 @@ function pesquisarJogos(termoBusca) {
   setJogoFiltrado(achou ? filtrados : [])
 }
 
-/*
-function pesquisarJogosFavoritos(){
-  setMostrarFavorito(true)
-  console.log(favoritos)
-  setJogoFavorito(favoritos)
-  console.log(jogoFavorito)
-}
-*/
+const [mostraFavorito, setMostraFavorito] = useState(false)
 
+function mostrarFavoritos(){
+  setMostraFavorito((prev)=> !prev)
+  console.log(favoritos)
+}
 
   const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo, favoritos }
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem, setFavoritos }
@@ -216,9 +210,9 @@ function pesquisarJogosFavoritos(){
       jogoFiltrado={jogoFiltrado}
       valor={valor}
       achado={achado}
-    /*jogoFavorito={jogoFavorito}*/
+      mostraFavorito={mostraFavorito}
     />
-   {/* <button onClick={() => pesquisarJogosFavoritos()}>Mostrar jogos favoritos</button> */ }
+    <button onClick={() => mostrarFavoritos()}>{mostraFavorito ? "Esconder favoritos" : "Mostrar favoritos"}</button>
   </>
   )
 }
