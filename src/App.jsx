@@ -38,7 +38,6 @@ function App() {
   }
 
   const [guardaNome, setGuardaNome] = useState([])
-  const [mostraPesquisa, setMostraPesquisa] = useState(false)
   const [valor, setValor] = useState("")
 
   function addJogo() {
@@ -87,7 +86,6 @@ function App() {
     })
     
     setShowMsg(false)
-    setMostraPesquisa(true)
     setValor("")
 }
 
@@ -160,7 +158,6 @@ function removerJogo(index) {
   }
 }
 
-
 const [jogoFiltrado, setJogoFiltrado] = useState([])
 
 const [achado, setAchado] = useState(false)
@@ -196,7 +193,7 @@ function mostrarFavoritos() {
 
       setTimeout(() => {
         setShowMsg(false)
-      }, 3000)
+      }, 1500)
     }, 0)
   }
 }
@@ -213,8 +210,7 @@ function mostrarFavoritos() {
       valor={valor}
       setValor={setValor}
       pesquisarJogos={pesquisarJogos}
-      mostraPesquisa={mostraPesquisa}
-    />
+      />
 
     <CriaJogo 
       formData={formData}
@@ -231,7 +227,13 @@ function mostrarFavoritos() {
       mostraFavorito={mostraFavorito}
       setMsg={setMsg}
     />
-    {favoritos && <button onClick={() => mostrarFavoritos()}>{mostraFavorito ? "Mostrar todos os jogos" : "Mostrar favoritos"}</button> }
+
+  {listaJogos.length > 0 && (
+    <button onClick={mostrarFavoritos}>
+      {mostraFavorito ? "Mostrar todos os jogos" : "Mostrar favoritos"}
+    </button>
+    )}
+
   </>
   )
 }
