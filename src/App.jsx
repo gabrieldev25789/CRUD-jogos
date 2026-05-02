@@ -38,6 +38,8 @@ function App() {
   }
 
   const [guardaNome, setGuardaNome] = useState([])
+  const [mostraPesquisa, setMostraPesquisa] = useState(false)
+  const [valor, setValor] = useState("")
 
   function addJogo() {
     if (nota > 10 || nota < 0) {
@@ -85,6 +87,8 @@ function App() {
     })
     
     setShowMsg(false)
+    setMostraPesquisa(true)
+    setValor("")
 }
 
 function handleImagemChange(e) {
@@ -156,7 +160,6 @@ function removerJogo(index) {
   }
 }
 
-const [valor, setValor] = useState("")
 
 const [jogoFiltrado, setJogoFiltrado] = useState([])
 
@@ -210,6 +213,7 @@ function mostrarFavoritos() {
       valor={valor}
       setValor={setValor}
       pesquisarJogos={pesquisarJogos}
+      mostraPesquisa={mostraPesquisa}
     />
 
     <CriaJogo 
@@ -227,7 +231,7 @@ function mostrarFavoritos() {
       mostraFavorito={mostraFavorito}
       setMsg={setMsg}
     />
-    {listaJogos.length > 0 && <button onClick={() => mostrarFavoritos()}>{mostraFavorito ? "Mostrar todos os jogos" : "Mostrar favoritos"}</button> }
+    {favoritos && <button onClick={() => mostrarFavoritos()}>{mostraFavorito ? "Mostrar todos os jogos" : "Mostrar favoritos"}</button> }
   </>
   )
 }
