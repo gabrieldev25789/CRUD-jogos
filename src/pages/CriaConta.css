@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap');
+
+.cria-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Sora', sans-serif;
+}
+
+/* ── LEFT ── */
+.cria-left {
+  flex: 1;
+  background: #0d0d14;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cria-left::before {
+  content: '';
+  position: absolute;
+  top: -120px; left: -120px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(109,76,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cria-left::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(34,211,145,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cria-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 3.5rem;
+}
+
+.cria-logo-icon {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #6d4cff 0%, #9c7bff 100%);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.cria-logo-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.cria-hero-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6d4cff;
+  margin-bottom: 1rem;
+}
+
+.cria-hero-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+
+.cria-hero-title span {
+  background: linear-gradient(90deg, #6d4cff, #22d391);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cria-hero-desc {
+  font-size: 15px;
+  color: #7a7a99;
+  line-height: 1.7;
+  max-width: 340px;
+  margin-bottom: 2.5rem;
+}
+
+.cria-features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cria-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #b0b0cc;
+}
+
+.cria-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6d4cff, #22d391);
+  flex-shrink: 0;
+}
+
+/* ── RIGHT ── */
+.cria-right {
+  width: 480px;
+  background: #13131f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+  border-left: 1px solid rgba(255,255,255,0.06);
+}
+
+.cria-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.cria-label-top {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6d4cff;
+  margin-bottom: 0.6rem;
+}
+
+.cria-card h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.cria-subtitle {
+  font-size: 14px;
+  color: #6a6a88;
+  margin-bottom: 2rem;
+}
+
+.cria-field {
+  margin-bottom: 1.2rem;
+}
+
+.cria-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8888aa;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.cria-field input {
+  width: 100%;
+  background: #1c1c2e;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.cria-field input:focus {
+  border-color: rgba(109,76,255,0.5);
+  box-shadow: 0 0 0 3px rgba(109,76,255,0.1);
+}
+
+.cria-field input::placeholder {
+  color: #3d3d5c;
+}
+
+.cria-hint {
+  font-size: 11px;
+  color: #4a4a6a;
+  margin-top: 5px;
+}
+
+.cria-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #6d4cff 0%, #8b6dff 100%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Sora', sans-serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 0.3px;
+}
+
+.cria-btn:hover { opacity: 0.9; }
+.cria-btn:active { transform: scale(0.99); }
+
+.cria-login-link {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 13px;
+  color: #4a4a6a;
+}
+
+.cria-login-link a {
+  color: #6d4cff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cria-login-link a:hover { text-decoration: underline; }
+
+@media (max-width: 780px) {
+  .cria-page { flex-direction: column; }
+  .cria-left { padding: 2.5rem 2rem 2rem; }
+  .cria-right { width: 100%; border-left: none; border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 1.5rem 3rem; }
+  .cria-hero-title { font-size: 2rem; }
+}
