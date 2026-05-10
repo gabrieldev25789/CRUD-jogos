@@ -6,8 +6,8 @@
 
 body {
   min-height: 100vh;
-  background: #0d0d0d;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a00 50%, #ff6a00 100%);
-  font-family: sans-serif;
+  font-family: 'Sora', sans-serif;
   color: #ffffff;
+  background: #0d0d14;
+  background: linear-gradient(135deg, #0d0d14 0%, #110d1f 50%, #16102b 100%);
 }
