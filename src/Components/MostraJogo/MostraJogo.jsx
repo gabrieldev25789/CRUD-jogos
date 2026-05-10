@@ -1,14 +1,7 @@
 import "./MostraJogo.css"
 
-function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos, jogoFiltrado, valor, mostraFavorito }) {
+function MostraJogo({ imagem, nome, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos, jogoFiltrado, valor, mostraFavorito }) {
   
-  const badgeClass = {
-    jogando: "b-playing",
-    zerado:  "b-done",
-    dropado: "b-dropped",
-    pausado: "b-paused",
-  }[status] ?? "b-playing";
-
   const stars = Array.from({ length: 5 }, (_, i) => (
     <div key={i} className={`star ${i < Math.round(nota / 2) ? "on" : ""}`} />
   ));
@@ -28,7 +21,7 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
 
   const deveEsconderPorFavorito = mostraFavorito && !isFavorito
 
-  if(deveEsconder || deveEsconderPorFavorito) return null 
+  if(deveEsconder || deveEsconderPorFavorito) return null
 
  return (
     <div className={isFavorito ? "gc favorito" : "gc"}>
@@ -47,7 +40,6 @@ function MostraJogo({ imagem, nome, status, consideracoes, nota, removerJogo, ed
       <div className="gc-footer">
         <span className="gc-score">{nota} / 10</span>
         <div className="gc-stars">{stars}</div>
-        <span className={`gc-badge ${badgeClass}`}>{status}</span>
 
         <span className="btns">
           <button
