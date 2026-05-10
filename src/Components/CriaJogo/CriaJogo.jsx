@@ -3,8 +3,8 @@ import MostraJogo from "../MostraJogo/MostraJogo";
 
 function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor, jogoFavorito, mostraFavorito, setMsg }) {
 
-  const { nome, nota, status, consideracoes, preview, ativo, favoritos } = formData
-  const { setNome, setNota, setStatus, setConsideracoes, setFavoritos } = formHandlers
+  const { nome, nota,  consideracoes, preview, ativo, favoritos } = formData
+  const { setNome, setNota, setConsideracoes, setFavoritos } = formHandlers
 
   const jogosOrdenados = [...listaJogos].sort((a, b) => {
   const aFav = favoritos.includes(a.nome)
@@ -59,16 +59,6 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
               />
               <span className="nota-suffix">/ 10</span>
             </div>
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Status</label>
-            <input
-              type="text"
-              placeholder="ex: gostando..."
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            />
           </div>
         </div>
 
