@@ -1,6 +1,6 @@
 import "./MostraJogo.css"
 
-function MostraJogo({ imagem, nome, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos, jogoFiltrado, valor, mostraFavorito }) {
+function MostraJogo({ imagem, nome, consideracoes, nota, removerJogo, editarJogo, favoritos, setFavoritos, jogoFiltrado, valor, mostraFavorito, escondeBtn }) {
   
   const stars = Array.from({ length: 5 }, (_, i) => (
     <div key={i} className={`star ${i < Math.round(nota / 2) ? "on" : ""}`} />
@@ -49,7 +49,7 @@ function MostraJogo({ imagem, nome, consideracoes, nota, removerJogo, editarJogo
             {isFavorito ? "★ Favoritado" : "☆ Favoritar"}
           </button>
           <button onClick={editarJogo} className="edit-btn">Editar</button>
-          <button onClick={removerJogo} className="remove-btn">Remover</button>
+          {!escondeBtn && <button onClick={removerJogo} className="remove-btn">Remover</button>}
         </span>
       </div>
     </div>
