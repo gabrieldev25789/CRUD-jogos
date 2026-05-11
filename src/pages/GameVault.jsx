@@ -56,7 +56,7 @@ function GameVault() {
       return
     }
 
-    if (!imagem || !preview || !nome || !status || !nota || !consideracoes) {
+    if (!imagem || !preview || !nome || !nota || !consideracoes) {
       setShowMsg(true)
       setMsg("Preencha todos os campos")
       return
@@ -86,7 +86,10 @@ function GameVault() {
     setValor("")
   }
 
+  const [escondeBtn, setEscondeBtn] = useState(false)
+
   function editarJogo(index) {
+    setEscondeBtn(true)
     const jogo = listaJogos[index]
     setAtivo(true)
     setPreview(jogo.preview)
@@ -99,6 +102,7 @@ function GameVault() {
   }
 
   function salvarEdicao() {
+    setEscondeBtn(false)
     const nomeAtual = listaJogos[editIndex].nome
     const jaExiste = guardaNome.includes(nome) && nome !== nomeAtual
 
@@ -193,6 +197,7 @@ function GameVault() {
         achado={achado}
         mostraFavorito={mostraFavorito}
         setMsg={setMsg}
+        escondeBtn={escondeBtn}
       />
 
       {listaJogos.length > 0 && (
