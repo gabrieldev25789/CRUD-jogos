@@ -3,23 +3,17 @@ import "./CriaConta.css"
 import { useNavigate } from 'react-router-dom'
 
 function CriaConta() {
-  
-    const [email, setEmail] = useState(() => {
-    const salvo = localStorage.getItem("email")
-    if (salvo) console.log("TEM EMAIL IGUAL")
-    return salvo ? JSON.parse(salvo) : ""
-  })
+  const [nome, setNome] = useState("")
+  const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
   const [confirmaSenha, setConfirmaSenha] = useState("")
   const [entrar, setEntrar] = useState(false)
 
+  const [user, setUser] = useState({})
+
   const navigate = useNavigate()
 
-  useEffect(() => {
-    localStorage.setItem("email", JSON.stringify(email))
-  }, [email])
-
-  function addUser() {
+function addUser() {
     if (!email || !senha || !confirmaSenha) {
       alert("Preencha todos os campos")
       return
@@ -28,8 +22,14 @@ function CriaConta() {
       alert("As senhas não coincidem")
       return
     }
+    setUser({nome: nome, email: email, senha: senha})
+
     navigate("/app")
   }
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   // ✅ return único com condicional dentro
   return (
@@ -58,6 +58,12 @@ function CriaConta() {
               <p className="cria-label-top">Novo por aqui?</p>
               <h1>Crie sua conta</h1>
               <p className="cria-subtitle">Preencha os dados abaixo para começar.</p>
+
+              <div className="cria-field">
+                <label htmlFor="nome">Nome</label>
+                <input id="nome" type="nome" placeholder="seu nome de user"               autoComplete="nome"
+                value={nome} onChange={(e) => setNome(e.target.value)} />
+              </div>
 
               <div className="cria-field">
                 <label htmlFor="email">E-mail</label>
