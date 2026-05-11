@@ -1,7 +1,7 @@
 import "./CriaJogo.css"
 import MostraJogo from "../MostraJogo/MostraJogo";
 
-function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor, jogoFavorito, mostraFavorito, setMsg }) {
+function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, editarJogo, salvarEdicao, handleImagemChange, favoritarJogo, jogoFiltrado, valor, jogoFavorito, mostraFavorito, setMsg, escondeBtn }) {
 
   const { nome, nota,  consideracoes, preview, ativo, favoritos } = formData
   const { setNome, setNota, setConsideracoes, setFavoritos } = formHandlers
@@ -105,6 +105,7 @@ function CriaJogo({ formData, formHandlers, addJogo, removerJogo, listaJogos, ed
                 jogoFavorito={jogoFavorito}
                 mostraFavorito={mostraFavorito}
                 setMsg={setMsg}
+                escondeBtn={escondeBtn}
               />
             )
             })}
