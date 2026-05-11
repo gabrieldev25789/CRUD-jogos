@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react"
 import "./CriaConta.css"
-
 import { useNavigate } from 'react-router-dom'
 
 function CriaConta() {
-  /*const [email, setEmail] = useState("") */
+  
+    const [email, setEmail] = useState(() => {
+    const salvo = localStorage.getItem("email")
+    if (salvo) console.log("TEM EMAIL IGUAL")
+    return salvo ? JSON.parse(salvo) : ""
+  })
   const [senha, setSenha] = useState("")
   const [confirmaSenha, setConfirmaSenha] = useState("")
+  const [entrar, setEntrar] = useState(false)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    localStorage.setItem("email", JSON.stringify(email))
+  }, [email])
 
   function addUser() {
     if (!email || !senha || !confirmaSenha) {
@@ -19,19 +28,10 @@ function CriaConta() {
       alert("As senhas não coincidem")
       return
     }
-     navigate("/app")
+    navigate("/app")
   }
-   
-    const [email, setEmail] = useState(()=>{
-    const salvo = localStorage.getItem("email")
-    if(salvo) console.log("TEM EMAIL IGUAL")
-    return salvo? JSON.parse(salvo) : "" })
 
-  useEffect(()=>{
-    localStorage.setItem("email", JSON.stringify(email))
-  }, [email])
-
-  
+  // ✅ return único com condicional dentro
   return (
     <div className="cria-page">
       <div className="cria-left">
@@ -51,30 +51,59 @@ function CriaConta() {
 
       <div className="cria-right">
         <div className="cria-card">
-          <p className="cria-label-top">Novo por aqui?</p>
-          <h1>Crie sua conta</h1>
-          <p className="cria-subtitle">Preencha os dados abaixo para começar.</p>
 
+          {!entrar ? (
+            // ✅ Tela de criar conta
+            <>
+              <p className="cria-label-top">Novo por aqui?</p>
+              <h1>Crie sua conta</h1>
+              <p className="cria-subtitle">Preencha os dados abaixo para começar.</p>
 
-          <div className="cria-field">
-            <label htmlFor="email">E-mail</label>
-            <input id="email" type="email" placeholder="seu@email.com" autoComplete="email"
-              value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div className="cria-field">
-            <label htmlFor="password">Senha</label>
-            <input id="password" type="password" placeholder="••••••••" autoComplete="new-password"
-              value={senha} onChange={(e) => setSenha(e.target.value)} />
-            <p className="cria-hint">Mínimo de 8 caracteres.</p>
-          </div>
-          <div className="cria-field">
-            <label htmlFor="confirm">Confirmar senha</label>
-            <input id="confirm" type="password" placeholder="••••••••" autoComplete="new-password"
-              value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
-          </div>
+              <div className="cria-field">
+                <label htmlFor="email">E-mail</label>
+                <input id="email" type="email" placeholder="seu@email.com" autoComplete="email"
+                  value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className="cria-field">
+                <label htmlFor="password">Senha</label>
+                <input id="password" type="password" placeholder="••••••••" autoComplete="new-password"
+                  value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <p className="cria-hint">Mínimo de 8 caracteres.</p>
+              </div>
+              <div className="cria-field">
+                <label htmlFor="confirm">Confirmar senha</label>
+                <input id="confirm" type="password" placeholder="••••••••" autoComplete="new-password"
+                  value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
+              </div>
 
-          <button className="cria-btn" type="button" onClick={addUser}>Criar conta</button>
-          <p className="cria-login-link">Já tem conta? <a href="#">Entrar</a></p>
+              <button className="cria-btn" type="button" onClick={addUser}>Criar conta</button>
+              <p className="cria-login-link">
+                Já tem conta? <a href="#" onClick={() => setEntrar(true)}>Entrar</a>
+              </p>
+            </>
+          ) : (
+            // ✅ Tela de login
+            <>
+              <p className="cria-label-top">Bem-vindo de volta!</p>
+              <h1>Entre na sua conta</h1>
+
+              <div className="cria-field">
+                <label htmlFor="email">E-mail</label>
+                <input id="email" type="email" placeholder="seu@email.com" autoComplete="email"
+                  value={email} onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className="cria-field">
+                <label htmlFor="password">Senha</label>
+                <input id="password" type="password" placeholder="••••••••" autoComplete="current-password"
+                  value={senha} onChange={(e) => setSenha(e.target.value)} />
+              </div>
+
+              <button className="cria-btn" type="button" onClick={() => navigate("/app")}>Entrar</button>
+              <p className="cria-login-link">
+                Não tem conta? <a href="#" onClick={() => setEntrar(false)}>Criar conta</a>
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
