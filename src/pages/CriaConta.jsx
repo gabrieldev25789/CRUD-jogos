@@ -1,18 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./CriaConta.css"
 
 import { useNavigate } from 'react-router-dom'
 
 function CriaConta() {
-  const [nome, setNome] = useState("")
-  const [email, setEmail] = useState("")
+  /*const [email, setEmail] = useState("") */
   const [senha, setSenha] = useState("")
   const [confirmaSenha, setConfirmaSenha] = useState("")
 
   const navigate = useNavigate()
 
   function addUser() {
-    if (!nome || !email || !senha || !confirmaSenha) {
+    if (!email || !senha || !confirmaSenha) {
       alert("Preencha todos os campos")
       return
     }
@@ -22,7 +21,17 @@ function CriaConta() {
     }
      navigate("/app")
   }
+   
+    const [email, setEmail] = useState(()=>{
+    const salvo = localStorage.getItem("email")
+    if(salvo) console.log("TEM EMAIL IGUAL")
+    return salvo? JSON.parse(salvo) : "" })
 
+  useEffect(()=>{
+    localStorage.setItem("email", JSON.stringify(email))
+  }, [email])
+
+  
   return (
     <div className="cria-page">
       <div className="cria-left">
@@ -46,11 +55,7 @@ function CriaConta() {
           <h1>Crie sua conta</h1>
           <p className="cria-subtitle">Preencha os dados abaixo para começar.</p>
 
-          <div className="cria-field">
-            <label htmlFor="name">Nome completo</label>
-            <input id="name" type="text" placeholder="Seu nome" autoComplete="name"
-              value={nome} onChange={(e) => setNome(e.target.value)} />
-          </div>
+
           <div className="cria-field">
             <label htmlFor="email">E-mail</label>
             <input id="email" type="email" placeholder="seu@email.com" autoComplete="email"
