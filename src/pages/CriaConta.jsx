@@ -18,11 +18,17 @@ function CriaConta(){
       alert("Preencha todos os campos")
       return
     }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Email inválido");
+      return;
+    }
+
     if (senha !== confirmaSenha) {
       alert("As senhas não coincidem")
       return
     }
-    
+
     const novoUser = { nome, email, senha }
     navigate("/app", { state: { user: novoUser } })
   }
