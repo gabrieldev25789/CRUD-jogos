@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import CriaJogo from '../Components/CriaJogo/CriaJogo'
 import Mensagem from '../Components/Mensagem/Mensagem'
@@ -171,6 +171,9 @@ function GameVault() {
   const formData = { nome, nota, status, consideracoes, preview, mostrar, ativo, favoritos }
   const formHandlers = { setNome, setNota, setStatus, setConsideracoes, handleImagem, setFavoritos }
 
+  const location = useLocation()
+  const user = location.state?.user 
+
   return (
     <>
       {showMsg && <Mensagem mensagem={msg} />}
@@ -198,6 +201,7 @@ function GameVault() {
         mostraFavorito={mostraFavorito}
         setMsg={setMsg}
         escondeBtn={escondeBtn}
+        user={user}
       />
 
       {listaJogos.length > 0 && (
