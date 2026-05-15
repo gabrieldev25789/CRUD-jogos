@@ -11,3 +11,29 @@ body {
   background: #0d0d14;
   background: linear-gradient(135deg, #0d0d14 0%, #110d1f 50%, #16102b 100%);
 }
+
+#mostrar-favoritos {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 1.5px solid #7F77DD;
+  background: #26215C;
+  color: #CECBF6;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
+}
+
+#mostrar-favoritos:hover {
+  background: #3C3489;
+  border-color: #AFA9EC;
+  color: #EEEDFE;
+}
+
+#mostrar-favoritos:active {
+  transform: scale(0.97);
+  background: #1a1640;
+}
