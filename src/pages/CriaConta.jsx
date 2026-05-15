@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 function CriaConta(){
 
   const [entrar, setEntrar] = useState(false)
-  const [user, setUser] = useState({})
 
   const [nome, setNome] = useState("")
   const [email, setEmail] = useState("")
@@ -23,11 +22,8 @@ function CriaConta(){
       alert("As senhas não coincidem")
       return
     }
-
-    setUser({nome: nome, email: email, senha: senha})
-
+    
     const novoUser = { nome, email, senha }
-    setUser(novoUser)
     navigate("/app", { state: { user: novoUser } })
   }
 
