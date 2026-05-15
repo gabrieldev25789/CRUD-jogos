@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import "./CriaConta.css"
 import { useNavigate } from 'react-router-dom'
 
-function CriaConta() {
+function CriaConta(){
+
+  const [entrar, setEntrar] = useState(false)
+  const [user, setUser] = useState({})
+
   const [nome, setNome] = useState("")
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
   const [confirmaSenha, setConfirmaSenha] = useState("")
-  const [entrar, setEntrar] = useState(false)
-
-  const [user, setUser] = useState({})
 
   const navigate = useNavigate()
 
-function addUser() {
-    if (!email || !senha || !confirmaSenha) {
+  function addUser() {
+    if (!nome || !email || !senha || !confirmaSenha) {
       alert("Preencha todos os campos")
       return
     }
@@ -22,16 +23,14 @@ function addUser() {
       alert("As senhas não coincidem")
       return
     }
+
     setUser({nome: nome, email: email, senha: senha})
 
-    navigate("/app")
+    const novoUser = { nome, email, senha }
+    setUser(novoUser)
+    navigate("/app", { state: { user: novoUser } })
   }
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
-  // ✅ return único com condicional dentro
   return (
     <div className="cria-page">
       <div className="cria-left">
@@ -53,7 +52,6 @@ function addUser() {
         <div className="cria-card">
 
           {!entrar ? (
-            // ✅ Tela de criar conta
             <>
               <p className="cria-label-top">Novo por aqui?</p>
               <h1>Crie sua conta</h1>
