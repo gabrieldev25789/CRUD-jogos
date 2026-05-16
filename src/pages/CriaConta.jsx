@@ -94,6 +94,12 @@ function CriaConta(){
               <h1>Entre na sua conta</h1>
 
               <div className="cria-field">
+                <label htmlFor="nome">Nome</label>
+                <input id="nome" type="nome" placeholder="seu nome de user"               autoComplete="nome"
+                value={nome} onChange={(e) => setNome(e.target.value)} />
+              </div>
+
+              <div className="cria-field">
                 <label htmlFor="email">E-mail</label>
                 <input id="email" type="email" placeholder="seu@email.com" autoComplete="email"
                   value={email} onChange={(e) => setEmail(e.target.value)} />
