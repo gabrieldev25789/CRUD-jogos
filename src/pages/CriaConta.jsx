@@ -32,16 +32,19 @@ function CriaConta( { usuarios } ){
     const novoUser = { nome, email, senha }
     navigate("/app", { state: { user: novoUser } })
 
-    usuarios.push({novoUser: novoUser})
+    usuarios.push(novoUser)
 }
 
   function entrarComConta(){
-    if(nome !== usuarios.nome){
+    const userEncontrado = usuarios.find(
+      (u) => u.email === email && u.senha === senha
+    )
+
+    if(userEncontrado) {
+      navigate("/App" , {state: {user: userEncontrado } } )
+    } else{
       alert("Usuario não encontrado")
-      return 
-    }  
-    const novoUser = { nome, email, senha }
-    navigate("/app", { state: { user: novoUser } })
+    }
   }
 
   return (
@@ -105,12 +108,6 @@ function CriaConta( { usuarios } ){
               <h1>Entre na sua conta</h1>
 
               <div className="cria-field">
-                <label htmlFor="nome">Nome</label>
-                <input id="nome" type="nome" placeholder="seu nome de user"               autoComplete="nome"
-                value={nome} onChange={(e) => setNome(e.target.value)} />
-              </div>
-
-              <div className="cria-field">
                 <label htmlFor="email">E-mail</label>
                 <input id="email" type="email" placeholder="seu@email.com" autoComplete="email"
                   value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -123,7 +120,7 @@ function CriaConta( { usuarios } ){
 
               <button className="cria-btn" type="button" onClick={() => entrarComConta()}>Entrar</button>
               <p className="cria-login-link">
-                Não tem conta? <a href="#" onClick={() => setEntrar(false)}>Criar conta</a>
+                Não tem conta? <a href="#" onClick={() => setEntrar(true)}>Criar conta</a>
               </p>
             </>
           )}
