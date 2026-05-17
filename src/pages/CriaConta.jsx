@@ -2,7 +2,7 @@ import { useState } from "react"
 import "./CriaConta.css"
 import { useNavigate } from 'react-router-dom'
 
-function CriaConta(){
+function CriaConta( { usuarios } ){
 
   const [entrar, setEntrar] = useState(false)
 
@@ -28,7 +28,18 @@ function CriaConta(){
       alert("As senhas não coincidem")
       return
     }
+  
+    const novoUser = { nome, email, senha }
+    navigate("/app", { state: { user: novoUser } })
 
+    usuarios.push({novoUser: novoUser})
+}
+
+  function entrarComConta(){
+    if(nome !== usuarios.nome){
+      alert("Usuario não encontrado")
+      return 
+    }  
     const novoUser = { nome, email, senha }
     navigate("/app", { state: { user: novoUser } })
   }
@@ -107,10 +118,10 @@ function CriaConta(){
               <div className="cria-field">
                 <label htmlFor="password">Senha</label>
                 <input id="password" type="password" placeholder="••••••••" autoComplete="current-password"
-                  value={senha} onChange={(e) => setSenha(e.target.value)} />
+                value={senha} onChange={(e) => setSenha(e.target.value)} />
               </div>
 
-              <button className="cria-btn" type="button" onClick={() => navigate("/app")}>Entrar</button>
+              <button className="cria-btn" type="button" onClick={() => entrarComConta()}>Entrar</button>
               <p className="cria-login-link">
                 Não tem conta? <a href="#" onClick={() => setEntrar(false)}>Criar conta</a>
               </p>
